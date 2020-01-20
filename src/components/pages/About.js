@@ -2,6 +2,7 @@ import React from "react";
 
 export default function About() {
     return (
+        // instead of using <div> using React.Fragment>
         <React.Fragment>
             <h1>About</h1>
             <p>
