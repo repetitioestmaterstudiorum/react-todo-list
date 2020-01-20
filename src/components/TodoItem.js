@@ -10,9 +10,9 @@ export class TodoItem extends Component {
             textDecoration: this.props.todo.completed ? "line-through" : "none"
         };
     };
-    markComplete = e => {
+    /*markComplete = e => {
         console.log(this.props);
-    };
+    };*/
 
     render() {
         const { id, title } = this.props.todo;
@@ -38,7 +38,9 @@ export class TodoItem extends Component {
 
 // PropTypes
 TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired
+    todo: PropTypes.object.isRequired,
+    markComplete: PropTypes.func.isRequired,
+    delTodo: PropTypes.func.isRequired
 };
 
 const btnStyle = {

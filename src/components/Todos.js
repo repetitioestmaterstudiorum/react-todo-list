@@ -17,18 +17,9 @@ class Todos extends Component {
 
 // PropTypes
 Todos.propTypes = {
-    todos: PropTypes.array.isRequired
+    todos: PropTypes.array.isRequired,
+    markComplete: PropTypes.func.isRequired,
+    delTodo: PropTypes.func.isRequired
 };
 
 export default Todos;
-
-/* doing this with a functional component rather than a class component could look like this, maybe: 
-
-import React from "react";
-
-function React(props) {
-    return todos.map(todo => <h3>hi</h3>);
-}
-
-export default Todos;
-*/
