@@ -4,7 +4,6 @@ import Header from "./components/layout/Header";
 import Todos from "./components/Todos";
 import AddTodo from "./components/AddTodo";
 import About from "./components/pages/About";
-// import uuid from "uuid";
 import axios from "axios";
 
 import "./App.css";
@@ -17,7 +16,13 @@ class App extends Component {
     componentDidMount() {
         axios
             .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
-            .then(response => this.setState({ todos: response.data }));
+            .then(response =>
+                this.setState({
+                    todos: response.data.filter(element => {
+                        return element.completed === false; // show only not yet completed tasks
+                    })
+                })
+            );
     }
 
     // toggle completed (state)
