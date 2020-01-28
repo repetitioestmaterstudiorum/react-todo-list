@@ -9,83 +9,83 @@ import axios from "axios";
 import "./App.css";
 
 class App extends Component {
-    state = {
-        todos: []
-    };
+  state = {
+    todos: []
+  };
 
-    componentDidMount() {
-        axios
-            .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
-            .then(response =>
-                this.setState({
-                    todos: response.data.filter(element => {
-                        return element.completed === false; // show only not yet completed tasks
-                    })
-                })
-            );
-    }
-
-    // toggle completed (state)
-    markComplete = id => {
+  componentDidMount() {
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+      .then(response =>
         this.setState({
-            todos: this.state.todos.map(todo => {
-                if (todo.id === id) {
-                    todo.completed = !todo.completed; // toggle bool
-                }
-                return todo;
-            })
-        });
-    };
+          todos: response.data.filter(element => {
+            return element.completed === false; // show only not yet completed tasks
+          })
+        })
+      );
+  }
 
-    // delete todo
-    delTodo = id => {
-        axios
-            .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-            .then(response =>
-                this.setState({
-                    todos: [...this.state.todos.filter(todo => todo.id !== id)]
-                })
-            );
-    };
+  // toggle completed (state)
+  markComplete = id => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed; // toggle bool
+        }
+        return todo;
+      })
+    });
+  };
 
-    // add todo
-    addTodo = title => {
-        axios
-            .post("https://jsonplaceholder.typicode.com/todos", {
-                title, // es6 doesn need "title: title"
-                completed: false
-            })
-            .then(response =>
-                this.setState({ todos: [...this.state.todos, response.data] })
-            );
-    };
+  // delete todo
+  delTodo = id => {
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(response =>
+        this.setState({
+          todos: [...this.state.todos.filter(todo => todo.id !== id)]
+        })
+      );
+  };
 
-    render() {
-        return (
-            <Router>
-                <div className="App">
-                    <div className="container">
-                        <Header />
-                        <Route
-                            exact
-                            path="/"
-                            render={props => (
-                                <React.Fragment>
-                                    <AddTodo addTodo={this.addTodo} />
-                                    <Todos
-                                        todos={this.state.todos}
-                                        markComplete={this.markComplete}
-                                        delTodo={this.delTodo}
-                                    />
-                                </React.Fragment>
-                            )}
-                        />
-                        <Route path="/about" component={About} />
-                    </div>
-                </div>
-            </Router>
-        );
-    }
+  // add todo
+  addTodo = title => {
+    axios
+      .post("https://jsonplaceholder.typicode.com/todos", {
+        title, // es6 doesn need "title: title"
+        completed: false
+      })
+      .then(response =>
+        this.setState({ todos: [...this.state.todos, response.data] })
+      );
+  };
+
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <div className="container">
+            <Header />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <React.Fragment>
+                  <AddTodo addTodo={this.addTodo} />
+                  <Todos
+                    todos={this.state.todos}
+                    markComplete={this.markComplete}
+                    delTodo={this.delTodo}
+                  />
+                </React.Fragment>
+              )}
+            />
+            <Route path="/about" component={About} />
+          </div>
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;
